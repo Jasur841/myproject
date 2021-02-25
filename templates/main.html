@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Log In - RoyalMarket {% endblock %}
+
+{% block content %}
+
+    <a href=" {% url 'login_view' %}" class="btn btn-secondary" style="float: right; margin-right: 15px;">Log in</a>
+    <a href="{% url 'signup' %}" class="btn btn-secondary" style="float: right">Sign up</a>
+
+    <h1 style="text-align: center;">Internet magazin</h1>
+
+
+
+    <div class="row" style="margin-right: 20px; ">
+        <div class="col-sm-6">
+            {% for product in products %}
+                <div class="card" style="width: 16rem;display: table-cell;">
+                    <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"><b> Prodcut category:</b> {{ product.category.name }}</h5>
+                        <h5 class="card-title"><b> Product name: </b>{{ product.name }}</h5>
+                        <h5 class="card-title"><b> Old price: </b>{{ product.old_price }}</h5>
+                        <h5 class="card-title"><b> Quantity:</b> {{ product.quantity }}</h5>
+                        <h5 class="card-title"><b> Description:</b> {{ product.description }}</h5>
+                        <h5 class="card-title"><b>Slug:</b> {{ product.slug }}</h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

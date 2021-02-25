@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ category }}
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5 py-4 profile card rounded border-dark">
+        <h3>Category: {{ category }}</h3>
+        <div class="row">
+            {% for product in products %}
+                <div class="card py-2 my-2 mr-2 col-md-3 bg-light">
+                    <a class="text-dark nav-link" href="{% url 'product-view' product.slug %}"><div class="card-img my-2">
+                        <img style="width: 160px" src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </div>
+                    <div class="card-title text-center">
+                        <h3>{{ product.name }}</h3>
+                    </div>
+                    <div class="card-text">
+                        <h5>Description: <span class="text-muted h6">{{ product.description }}</span></h5>
+                    </div>
+                    <div>
+                        <h6>Price: ${{ product.price }}</h6>
+                        <h6>Old price: ${{ product.old_price }}</h6>
+                    </div>
+                    <div>
+                        <h6>Quantity: {{ product.quantity }}</h6>
+                    </div></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

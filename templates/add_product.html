@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Market
+{% endblock %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container w-50 m-auto bg-secondary text-white py-2">
+        <div class="logo my-5 text-center">
+            <h2>Add Product</h2>
+        </div>
+        <form method="POST" action="{% url 'advertisement' %}" class="mb-5" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in add_product_form %}
+                <div class="form-class">
+{#                {% if field.label == 'merchant' %}#}
+{#                {% endif %}>#}
+                    {{ field.label_tag }}
+                    {{ field }}
+
+
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn rounded" value="Submit" >
+{#            <input type="text" name="category" >#}
+{#            <input type="text" name="name">#}
+{#            <input type="text" name="description">#}
+{#            <input type="image" name="image" src="">#}
+{#            <input type="text" name="slug">#}
+{#            <input type="number" name="price">#}
+{#            <input type="number" name="quantity">#}
+{#            <input type="number" name="old_price">#}
+{#            <input type="submit" class="btn rounded" value="Submit" >#}
+{#            <input type="number" name="price">#}
+{#            <input type="number" name="quantity">#}
+{#            <input type="submit" value="Submit">#}
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}

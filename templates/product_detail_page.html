@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Detail
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5 py-4 card rounded border bg-light">
+        <div>
+            <img style="width: 200px;" class="float-left mr-5" src="{{ product.image.url }}" alt="{{ product.name }}">
+            <div>
+                {% if cart_item == None %}
+                    <form method="POST">
+                        <h4>Title: {{ product.name }}</h4>
+                        <h6>Price: ${{ product.price }}
+                            <del class="text-muted">${{ product.old_price }}</del>
+                        </h6>
+                        {% csrf_token %}
+                        <input type="submit" value="Add to cart">
+                    </form>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <h4>Title: {{ product.name }}</h4>
+                        <h6>Price: ${{ product.price }}
+                            <del class="text-muted">${{ product.old_price }}</del>
+                        </h6>
+                        <label>You have </label>
+                        {{ edit_cart_form.quantity }}
+                        <label>. Please, don't forget press "Save" button!</label>
+                        <input type="submit" value="Save">
+                    </form>
+                    <input type="button" value="delete" >
+                    <button onclick="increment()" id="plus_button">+</button>
+                    <button onclick="decrement()" id="minus_btn">-</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static '../static/javascript/product_detail_page.js' %}"></script>
+{% endblock %}

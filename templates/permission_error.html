@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container w-50 my-5 py-4 profile card rounded border-dark">
+        <h3 class="text-warning">Please, check data. The bank haven't give permission!</h3>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

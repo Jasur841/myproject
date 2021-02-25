@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Market
+{% endblock %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container w-50 my-5 py-4 profile card rounded border-dark" style="margin-top: 20px" >
+  <div class="card-body">
+    <h5 class="card-title">Username:{{ user.username }}</h5>
+    <h5 class="card-title">balance: {{ user.client.balance }} so'm <a href="{% url 'add_balance' %}"><button id="myBtn" class="btn btn-danger m-auto">+ hisobni to'ldirish</button></a></h5>
+
+      <div>
+            <h3>Your transactions</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Bank</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <th>{{ transaction.bank }}</th>
+                        <th>{{ transaction.value }}</th>
+                        <th>{{ transaction.date }}</th>
+                        <th class="text-success">Success</th>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags}}">{{ message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="container my-5 py-4 w-75 profile border card border-warning rounded">
+        <h3 class="text-muted"><span class='h2 text-dark'>{{ user.username }}</span>'s cart</h3>
+        <small class="text-muted">cart_id: #{{ user_cart.id }}</small>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price(1pc)</th>
+                <th>Price(total)</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cart_item in cart_items %}
+                <tr>
+                    <th>{{ forloop.counter }} (#{{ cart_item.id }})</th>
+                    <th><a class="nav-link text-dark"
+                           href="{% url 'product-view' cart_item.product.slug %}">{{ cart_item.product }}</a></th>
+                    <th>{{ cart_item.quantity }}</th>
+                    <th>${{ cart_item.product.price }}</th>
+                    <th>${{ cart_item.get_total }}</th>
+                    <th>
+                        <form method="POST" action="{% url 'cart' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="product_id" value="{{ cart_item.id }}">
+                            <input class="bg-danger btn" type="submit" value="delete">
+                        </form>
+                    </th>
+                </tr>
+            {% endfor %}
+            {% if user_cart != None %}
+                <tr>
+                    <th>##</th>
+                    <th><h3>All</h3></th>
+                    <th><h3>{{ user_cart.get_total }}</h3></th>
+                    <th></th>
+                    <th>
+                        <h3>Total - {{ user_cart.get_cart_total }} sum</h3>
+                    </th>
+                    <th>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="order">
+                            <input class="btn bg-success" type="submit" value="Order">
+                        </form>
+                    </th>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

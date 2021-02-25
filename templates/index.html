@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    RoyalMarket
+{% endblock %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+
+<div class="bg-success" style="margin-bottom: 20px;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="h3 text-warning nav-link" href="/">Internet magazin</a>
+                <div class="float right">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="form-inline my-2 my-lg-0">
+
+                            <a href="{% url 'profile' %}" class="btn text-light bg-warning mr-2"><i
+                                    class="fa fa-user"></i></a>
+                            {% if request.user.client %}
+                            {% elif request.user.merchant %}
+                                <a href="{% url 'advertisement' %}" class="btn text-light bg-info mr-2">Advertise</a>
+                            {% endif %}
+                            <a href="{% url 'balance' %}" class="btn text-light bg-info mr-2">{{ request.user.client.balance }}</a>
+                            <a href="{% url 'cart' %}" class="btn text-light bg-primary mr-2"><i
+                                    class="fa fa-shopping-cart"></i></a>
+                            <a href="{% url 'ordered_carts' %}" class="btn text-light bg-primary"><i
+                                    class="fa fa-truck"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="text-center mt-4">
+            <h1>Welcome our online market.</h1>
+        </div>
+        <div>
+            <div>
+                <button id="myBtn" class="btn btn-danger m-auto">Categories</button>
+            </div>
+            <div>
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close" >&times;</span>
+                        <div>
+                            <h2>Categories</h2>
+                        </div>
+                        <div class="row">
+                            {% for category in categories %}
+                                <div class="col-md-3">
+                                    <a href="{% url 'category-by-name' category.slug %}"
+                                       class="btn btn-primary m-auto d-flex">{{ category }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h3 class=>Most recent products</h3>
+            </div>
+            <div class="row p-md-5">
+
+                {% for product in products %}
+                    <div class="col-md-3">
+                        <div class="card py-2 my-2 mr-2 bg-light">
+                            <a class="nav-link text-dark" href="{% url 'product-view' product.slug %}">
+                                <div class="card-img my-2">
+                                    <img style="width: 160px" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </div>
+                                <div class="card-title">
+                                    {{ product.name }}
+                                </div>
+                                <div class="card-text">
+                                    <p>{{ product.description }}</p>
+                                </div>
+                                <div>
+                                    <small>Price: ${{ product.price }}
+                                        <del>${{ product.old_price }}</del>
+                                    </small>
+                                </div>
+                                <div>
+                                    <small>Quantity: {{ product.quantity }}</small>
+                                </div>
+                                <div>
+                                    <small>Created_at: {{ product.created_at }}</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags}}">{{ message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+
+
+{% endblock %}
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+
+
+
+{% block scripts %}
+    <script src="{% static 'javascript/index.js' %}"></script>
+{% endblock %}
+
+

@@ -1,0 +1,66 @@
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>{% block title %}{% endblock %}</title>#}
+{#    {% block header %}{% endblock %}#}
+{#    <link rel="stylesheet" href="{% static '../static/bootstrap/css/bootstrap.css' %}">#}
+{#    <link rel="stylesheet" href="{% static '../static/css/base.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">#}
+{#</head>#}
+{#<body>#}
+{##}
+{##}
+{#<div class="pb-5" style="font-family: 'Segoe UI'">#}
+{#</div>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#{% block scripts %}{% endblock %}#}
+{#</body>#}
+{#</html>#}
+{#<!-- templates/base.html -->#}
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block header %}{% endblock %}
+    <link rel="stylesheet" href="{% static '../static/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+</head>
+<body>
+<div>
+
+
+<div class="pb-5" style="font-family: 'Segoe UI'">
+    {% block content %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags}}">{{ message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    {% endblock %}
+</div>
+
+
+
+
+
+{% block scripts %}{% endblock %}
+</body>
+</html>
+<!-- templates/base.html -->
+
+

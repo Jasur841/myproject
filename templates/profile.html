@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Balance
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static '../static/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="card text-white bg-success mb-5 pd-5" style="max-width: 18rem;margin-left: 500px;padding: 50px">
+        <div class="card-header">About User</div>
+        {% if user.client.role %}
+            <div class="card-body">
+                <h6>name:{{ user.client.username }}</h6>
+                <img style="height: 200px;width: 200px; "src="{{ user.client.image.url }}">
+                <h5><span class="text-muted h6">Phone:</span> {{ user.phone_number }}</h5>
+                <h5><span class="text-muted h6">Balance:</span> {{ request.user.client.balance }} so'm</h5>
+                <h5><span class="text-muted h6">Role:</span> {{ user.client.role }} </h5>
+
+            </div>
+        {% else %}
+            <div class="card-body">
+                <h6>username:{{ user.merchant }}</h6>
+                <img style="height: 200px;width: 200px;" src="{{ user.merchant.image.url }}">
+                <h5><span class="text-muted h6">Phone:</span> {{ user.merchant.phone_number }}</h5>
+                <h5><span class="text-muted h6">Balance:</span> {{ user.merchant.balance }} so'm</h5>
+                <h5><span class="text-muted h6">Role</span> {{ user.merchant.role }} </h5>
+
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+

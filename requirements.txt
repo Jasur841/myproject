@@ -1,0 +1,9 @@
+asgiref==3.3.1
+Django==3.1.6
+django-location-field==2.1.0
+parts==1.0.2
+Pillow==8.1.0
+products==0.1.0
+pytz==2021.1
+six==1.15.0
+sqlparse==0.4.1

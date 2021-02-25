@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container w-50 my-5 py-4 profile card rounded border-dark text-center">
+        <h3 class="text-warning">Please, fill balance. Your balance is lower than your ordered!</h3>
+        <a class="btn-success text-light btn m-auto" href="{% url 'accounts/fill_balance' %}"><i
+                class="fa fa-plus"></i> Fill balance</a>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Fill Balance
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container w-50 my-5 py-4 rounded border-dark bg-white">
+        <h3>Your ordered carts</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Products</th>
+                <th>Value</th>
+                <th>Ordered_at</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ordered_cart in ordered_carts %}
+                <tr>
+                    <th>{{ ordered_cart.id }}</th>
+                    <th>{{ ordered_cart.user }}</th>
+                    <th>{{ ordered_cart.get_total }}pc</th>
+                    <th>${{ ordered_cart.get_cart_total }}</th>
+                    <th>{{ ordered_cart.ordered_date }}</th>
+                    <th><h5 class="text-success">Active</h5></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}{% endblock %}
